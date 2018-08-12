@@ -24,7 +24,6 @@ public class Runner {
 	void run() {
 		mainFrame.add(mainPanel);
 		
-		mainFrame.setTitle("Ready Player 1");
 		mainFrame.setSize(width, height);
 		
 		mainFrame.setVisible(true);
