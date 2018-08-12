@@ -24,7 +24,6 @@ public class Runner {
 	void run() {
 		mainFrame.add(mainPanel);
 		
-		mainFrame.setTitle("Nova");
 		mainFrame.setSize(width, height);
 		
 		mainFrame.setVisible(true);
