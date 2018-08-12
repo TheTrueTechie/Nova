@@ -1,12 +1,15 @@
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Runner {
 	static final int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
 	static final int height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-	
-	JFrame mainFrame;
+
 	GamePanel gamePanel;
+	JFrame mainFrame;
+	JPanel mainPanel;
 
 	public Runner() {
 		mainFrame = new JFrame();
@@ -15,17 +18,16 @@ public class Runner {
 	}
 
 	public static void main(String[] args) {
-		Runner archonite = new Runner();
+		Runner runner = new Runner();
 	}
 
 	void run() {
-		sym.add(panelope);
-		sym.setTitle("Ready Player 1");
-		sym.addKeyListener(panelope);
-		sym.setSize(width, height);
-		sym.setVisible(true);
-		sym.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panelope.startGame(true);
-		// System.out.println("runner");
+		mainFrame.add(mainPanel);
+		
+		mainFrame.setTitle("Ready Player 1");
+		mainFrame.setSize(width, height);
+		
+		mainFrame.setVisible(true);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
