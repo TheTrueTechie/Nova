@@ -2,19 +2,15 @@
 import javax.swing.JFrame;
 
 public class Runner {
-	JFrame frame;
-
-	// static final int width =
-	// java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
-	// static final int height =
-	// java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-	static final int width = 1920;
-	static final int height = 1044;
-	Panel gpanel;
+	static final int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+	static final int height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+	
+	JFrame mainFrame;
+	GamePanel gamePanel;
 
 	public Runner() {
-		gframe = new JFrame();
-		gpanel = new Panel();
+		mainFrame = new JFrame();
+		gamePanel = new GamePanel();
 		run();
 	}
 
