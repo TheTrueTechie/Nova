@@ -21,13 +21,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final static int PAUSE_STATE = 2;
 	static int current_state = GAME_STATE;
 	static TestBlock oplorom;
-	Manager gman = new Manager();
+	Manager gman;
 
 	public GamePanel() {
 		gamespeed = new Timer(1000 / 60, this);
 		font1 = new Font("Arial", 0, 24);
-		oplorom = new TestBlock(this, Runner.width - (75 / 2), Runner.width - (75 / 2), 75, 75);
-		gman.addObject(oplorom);
+		// oplorom = new TestBlock(this, gman, Runner.width - (75 / 2), Runner.width -
+		// (75 / 2), 75, 75);
+		// gman.addObject(oplorom);
 		System.out.println("Constructed.");
 		/*
 		 * image import format try { morrowright =
@@ -38,11 +39,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void startGame() {
-		// oplorom = new TestBlock(this, Runner.width - (75 / 2), Runner.width - (75 /
-		// 2), 75, 75);
-		// gman = new Manager();
-		// gman.addObject(oplorom);
+		oplorom = new TestBlock(this, gman, Runner.width - (75 / 2), Runner.width - (75 / 2), 75, 75);
+		gman = new Manager();
+		gman.addObject(oplorom);
 		gamespeed.start();
+
 		System.out.println("Started.");
 	}
 
@@ -104,6 +105,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	protected void paintComponent(Graphics graphix) {
+		super.paintComponent(graphix);
 		System.out.println("PaintComponent.");
 		if (current_state == MENU_STATE) {
 			drawMenuState(graphix);

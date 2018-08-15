@@ -4,14 +4,16 @@ import java.awt.Graphics;
 public class TestBlock extends BasicObject {
 
 	GamePanel gpanelAmbassador;
+	Manager manager;
 	int xspeed;
 	int yspeed;
 	public int yFlux;
 	public int xFlux;
 
-	public TestBlock(GamePanel gpanelAmbassador, int x, int y, int width, int height) {
+	public TestBlock(GamePanel gpanelAmbassador, Manager manager, int x, int y, int width, int height) {
 		super(x, y, width, height);
 		this.gpanelAmbassador = gpanelAmbassador;
+		this.manager = manager;
 		yspeed = 0;
 		xspeed = 0;
 		yFlux = 0;
