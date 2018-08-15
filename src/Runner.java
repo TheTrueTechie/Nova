@@ -18,12 +18,12 @@ public class Runner {
 
 		mainFrame = new JFrame();
 		mainPanel = new JPanel();
-
-		run();
+		
 	}
 
 	public static void main(String[] args) {
 		Runner runner = new Runner();
+		runner.run();
 	}
 
 	void run() {
@@ -33,5 +33,6 @@ public class Runner {
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gamePanel.startGame();
+		System.out.println("Runner done.");
 	}
 }
