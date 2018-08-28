@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -19,11 +20,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final static int MENU_STATE = 0;
 	final static int GAME_STATE = 1;
 	final static int PAUSE_STATE = 2;
+	final static int END_STATE = 3;
 	static int current_state = GAME_STATE;
 	static TestBlock oplorom;
 	Manager gman;
 	Ball ball;
 	CheckCollisionCatcher collisioncheckobj;
+	Building base1;
+	Building base2;
+	Building base3;
+	Building base4;
+	static int numDeaths;
+	Ball temp;
 
 	public GamePanel() {
 		gamespeed = new Timer(1000 / 60, this);
@@ -41,6 +49,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void startGame() {
+		numDeaths = 0;
+		base1 = new Building(Runner.width / 4, Runner.height / 4, 100, 100, 100);
+		base2 = new Building(Runner.width / 4 * 3, Runner.height / 4, 100, 100, 100);
+		base3 = new Building(Runner.width / 4, Runner.height / 4 * 3, 100, 100, 100);
+		base4 = new Building(Runner.width / 4 * 3, Runner.height / 4 * 3, 100, 100, 100);
 		collisioncheckobj = new CheckCollisionCatcher(0, 0, Runner.width, Runner.height);
 		ball = new Ball(100, 100, 40, 40);
 		oplorom = new TestBlock(this, gman, (Runner.width / 2) - (75 / 2), (Runner.height / 2) - (75 / 2), 75, 75);
@@ -49,6 +62,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		gman.addObject(collisioncheckobj);
 		gman.addObject(ball);
 		gman.addObject(oplorom);
+		gman.addObject(base1);
+		gman.addObject(base2);
+		gman.addObject(base3);
+		gman.addObject(base4);
 		gamespeed.start();
 
 		// System.out.println("Started.");
@@ -78,6 +95,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
+	public void addZombie() {
+		numDeaths++;
+		Ball temp = new Ball(10, 10, 40, 40);
+		gman.addObject(temp);
+	}
+
 	private void drawMenuState(Graphics graphix) {
 		graphix.setColor(Color.blue);
 		graphix.fillRect(0, 0, Runner.width, Runner.height);
@@ -101,11 +124,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	private void updateGameState() {
 		// System.out.println("Game updated.");
-		if (oplorom.isAlive == false) {
-			System.out.println("dead");
-		}
+		/*
+		 * if (oplorom.isAlive == false) { System.out.println("dead"); oplorom.isAlive =
+		 * true; addZombie(oplorom); }
+		 */
 		gman.update();
 		gman.checkCollision();
+		if ((base1.isAlive == false) && (base2.isAlive == false) && (base3.isAlive == false)
+				&& (base4.isAlive == false)) {
+			current_state = END_STATE;
+		}
 
 	}
 
@@ -114,6 +142,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	private void updatePauseState() {
+		// System.out.println("Game, paused, updated.");
+	}
+
+	private void drawEndState(Graphics graphix) {
+		graphix.setColor(Color.red);
+		graphix.fillRect(0, 0, Runner.width, Runner.height);
+	}
+
+	private void updateEndState() {
 		// System.out.println("Game, paused, updated.");
 	}
 

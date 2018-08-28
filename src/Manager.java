@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Manager implements ActionListener {
 	ArrayList<BasicObject> objects;
-
+	GamePanel gpanel = new GamePanel();
 	private int score = 0;
 
 	int enemySpawnTime = 900;
@@ -50,14 +50,23 @@ public class Manager implements ActionListener {
 				BasicObject o1 = objects.get(i);
 				BasicObject o2 = objects.get(j);
 				if (o1.collisionArea.intersects(o2.collisionArea)) {
-					System.out.println("hit");
+					// System.out.println("hit");
 
 					if (((o1 instanceof Ball) && (o2 instanceof TestBlock))
 							|| ((o2 instanceof Ball) && (o1 instanceof TestBlock))) {
 
-						o1.isAlive = o1 instanceof TestBlock ? false : true;
-						o2.isAlive = o2 instanceof TestBlock ? false : true;
+						gpanel.addZombie();
 						;
+
+					}
+					if (((o1 instanceof Ball) && (o2 instanceof Building))
+							|| ((o2 instanceof Ball) && (o1 instanceof Building))) {
+
+						Building building = o1 instanceof Building ? (Building) o1 : (Building) o2;
+						building.health -= 10 * gpanel.numDeaths;
+						if (building.health <= 0) {
+							building.isAlive = false;
+						}
 
 					}
 				}
