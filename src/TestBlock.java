@@ -7,6 +7,10 @@ public class TestBlock extends BasicObject {
 	Manager manager;
 	int xspeed;
 	int yspeed;
+	// hey Shiv! the speed modifiers are a duo set that work in sequence. The f l u
+	// x modifiers modify the direct speed modifiers. These flux modifiers will
+	// always be between -2 and 2, inclusive. However, the speed modifiers have no
+	// bounds. This is a fun little acceleration trick.
 	public int yFlux;
 	public int xFlux;
 
@@ -27,12 +31,14 @@ public class TestBlock extends BasicObject {
 		xspeed += xFlux;
 		y += yspeed;
 		x += xspeed;
+		// System.out.println("x flux: " + xFlux);
 	}
 
 	@Override
 	public void draw(Graphics gpx) {
-		gpx.setColor(Color.black);
+		gpx.setColor(Color.white);
 		gpx.fillRect(x, y, width, height);
+		// System.out.println("x " + x + " y " + y);
 		// gpx.drawImage(Panel.enemy, x, y, width, height, null);
 	}
 

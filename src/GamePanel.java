@@ -22,6 +22,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	static int current_state = GAME_STATE;
 	static TestBlock oplorom;
 	Manager gman;
+	Ball ball;
+	CheckCollisionCatcher collisioncheckobj;
 
 	public GamePanel() {
 		gamespeed = new Timer(1000 / 60, this);
@@ -29,7 +31,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// oplorom = new TestBlock(this, gman, Runner.width - (75 / 2), Runner.width -
 		// (75 / 2), 75, 75);
 		// gman.addObject(oplorom);
-		System.out.println("Constructed.");
+		// System.out.println("Constructed.");
 		/*
 		 * image import format try { morrowright =
 		 * ImageIO.read(this.getClass().getResourceAsStream("MorrowRight.jpg")); } catch
@@ -39,12 +41,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void startGame() {
-		oplorom = new TestBlock(this, gman, Runner.width - (75 / 2), Runner.width - (75 / 2), 75, 75);
+		collisioncheckobj = new CheckCollisionCatcher(0, 0, Runner.width, Runner.height);
+		ball = new Ball(100, 100, 40, 40);
+		oplorom = new TestBlock(this, gman, (Runner.width / 2) - (75 / 2), (Runner.height / 2) - (75 / 2), 75, 75);
+		System.out.println(oplorom.x + " . " + oplorom.y);
 		gman = new Manager();
+		gman.addObject(collisioncheckobj);
+		gman.addObject(ball);
 		gman.addObject(oplorom);
 		gamespeed.start();
 
-		System.out.println("Started.");
+		// System.out.println("Started.");
 	}
 
 	@Override
@@ -54,15 +61,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyChar() == KeyEvent.VK_UP) {
-			oplorom.yspeedAdder = -1;
-		} else if (e.getKeyChar() == KeyEvent.VK_DOWN) {
-			oplorom.yspeedAdder = 1;
-		} else if (e.getKeyChar() == KeyEvent.VK_RIGHT) {
-			oplorom.xspeedAdder = 1;
-		} else if (e.getKeyChar() == KeyEvent.VK_LEFT) {
-			oplorom.xspeedAdder = -1;
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			oplorom./* yFlux */yspeed = -5;
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			oplorom./* yFlux */yspeed = 5;
+		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			oplorom./* xFlux */xspeed = 5;
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			oplorom./* xFlux */xspeed = -5;
 		}
+		// System.out.println("keypressed");
 	}
 
 	@Override
@@ -73,7 +81,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	private void drawMenuState(Graphics graphix) {
 		graphix.setColor(Color.blue);
 		graphix.fillRect(0, 0, Runner.width, Runner.height);
-		System.out.println("Menu drawn.");
+		// System.out.println("Menu drawn.");
 	}
 
 	private void updateMenuState() {
@@ -82,31 +90,35 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	private void drawGameState(Graphics graphix) {
 		if (oplorom != null) {
-			graphix.setColor(Color.darkGray);
-			graphix.fillRect(0, 0, Runner.width, Runner.height);
+			// graphix.setColor(Color.darkGray);
+			// graphix.fillRect(0, 0, Runner.width, Runner.height);
 			if (gman != null) {
 				gman.draw(graphix);
 			}
 		}
-		System.out.println("Game drawn.");
+		// System.out.println("Game drawn.");
 	}
 
 	private void updateGameState() {
-		System.out.println("Game updated.");
+		// System.out.println("Game updated.");
+		if (oplorom.isAlive == false) {
+			System.out.println("dead");
+		}
 		gman.update();
+
 	}
 
 	private void drawPauseState(Graphics graphix) {
-		System.out.println("Game, paused, drawn.");
+		// System.out.println("Game, paused, drawn.");
 	}
 
 	private void updatePauseState() {
-		System.out.println("Game, paused, updated.");
+		// System.out.println("Game, paused, updated.");
 	}
 
 	protected void paintComponent(Graphics graphix) {
 		super.paintComponent(graphix);
-		System.out.println("PaintComponent.");
+		// System.out.println("PaintComponent.");
 		if (current_state == MENU_STATE) {
 			drawMenuState(graphix);
 		} else if (current_state == GAME_STATE) {
@@ -118,7 +130,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("ActionPerformed.");
+		// System.out.println("ActionPerformed.");
 		repaint();
 		// paintComponent(this.getGraphics());
 		if (current_state == MENU_STATE) {

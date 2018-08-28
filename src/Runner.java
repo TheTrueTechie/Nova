@@ -4,8 +4,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Runner {
-	static final int width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
-	static final int height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+	// static final int width =
+	// java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+	// static final int height =
+	// java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+	static final int width = 1920;
+	static final int height = 1080;
 
 	String gameVersion = ".02 Alpha";
 
@@ -14,7 +18,6 @@ public class Runner {
 
 	public Runner() {
 		gamePanel = new GamePanel();
-
 		mainFrame = new JFrame();
 
 	}
@@ -27,6 +30,7 @@ public class Runner {
 	void run() {
 		mainFrame.add(gamePanel);
 		mainFrame.setTitle("Nova " + gameVersion);
+		mainFrame.addKeyListener(gamePanel);
 		mainFrame.setSize(width, height);
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
