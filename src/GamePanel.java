@@ -31,7 +31,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Building base3;
 	Building base4;
 	static int numDeaths;
-	Ball temp;
 
 	public GamePanel() {
 		gamespeed = new Timer(1000 / 60, this);
@@ -92,13 +91,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
-	}
-
-	public void addZombie() {
-		numDeaths++;
-		Ball temp = new Ball(10, 10, 40, 40);
-		gman.addObject(temp);
+		oplorom.yspeed = 0;
+		oplorom.xspeed = 0;
 	}
 
 	private void drawMenuState(Graphics graphix) {
