@@ -1,22 +1,27 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class Ball extends BasicObject {
 	int xspeed;
 	int yspeed;
+	int noCollide;
 
 	public Ball(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		yspeed = new Random().nextInt(16) - 8;
-		;
 		xspeed = new Random().nextInt(16) - 8;
-		;
+
 	}
 
 	@Override
 	public void update() {
 		super.update();
+		if (System.currentTimeMillis() - noCollide == 2000) {
+			noCollide = 0;
+		}
 		if ((y <= 0) || ((y + height) >= Runner.height)) {
 			// yspeed/* = new Random().nextInt(16) - 8 */++;
 			yspeed = -yspeed;
@@ -37,4 +42,5 @@ public class Ball extends BasicObject {
 		g.fillRect(x, y, width, height);
 		super.draw(g);
 	}
+
 }
