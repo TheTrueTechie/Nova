@@ -105,6 +105,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			System.out.println("dead");
 		}
 		gman.update();
+		gman.checkCollision();
 
 	}
 
